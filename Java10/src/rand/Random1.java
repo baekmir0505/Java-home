@@ -11,6 +11,8 @@ public class Random1 {
 		mr.go1();
 		mr.go2();
 		mr.go3();
+		mr.go4();
+		
 		
 		Randoms rd = Randoms.getInstance();
 		System.out.println(rd.go());
@@ -36,6 +38,12 @@ class MyRandom{
 	public void go3() {
 		Random random = new Random();
 		int result = random.nextInt(10)+1;          // (0*10 ~ 0.99999*10) +1          == 1 ~ 10
+		System.out.println(result);
+	}
+	
+	// Math 클래스를 사용해서 랜덤 만들기
+	public void go4() {
+		int result = ((int)Math.random() * 10) + 1;        // 1 ~ 10
 		System.out.println(result);
 	}
 }
