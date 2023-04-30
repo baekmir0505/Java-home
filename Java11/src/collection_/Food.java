@@ -25,7 +25,7 @@ public class Food {
 			choice = sc.nextInt();
 			if(choice == 1) {
 				System.out.println("추가할 음식: ");
-				str = sc.next();
+				fl_name = sc.next();
 				System.out.println("추가 음식의 가격");
 				fl_price = sc.nextInt();
 				fl.addFood(fl_name, fl_price);
@@ -34,7 +34,7 @@ public class Food {
 				str = sc.next();
 				System.out.println("변경 후 음식: ");
 				after = sc.next();
-				fl.setFood(str, after);
+				fl.setFood(str, after,fl_price);
 			}else if(choice == 3) {
 				System.out.println("삭제할 음식: ");
 				str = sc.next();
@@ -69,14 +69,16 @@ class FoodList{
 		price.add(fl_price);
 	}
 	
-	public void setFood(String prev, String after) {
+	public void setFood(String prev, String after, int fl_price) {
 		int number = name.indexOf(prev);
 		name.set(number, after);
+		price.set(number, fl_price);
 	}
 	
 	public void deleteFood(String str) {
 		int number = name.indexOf(str);
 		name.remove(number);
+		price.remove(number);
 	}
 	
 	public void showAll() {
