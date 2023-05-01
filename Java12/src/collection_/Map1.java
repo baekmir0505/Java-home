@@ -2,7 +2,7 @@ package collection_;
 
 import java.util.HashMap;
 import java.util.Set;
-
+ 
 public class Map1 {
 	public static void main(String[] args) {
 		// 배열, List, Set, Map
