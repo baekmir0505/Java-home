@@ -9,22 +9,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Stream2 {
+public class LogFile {
 	public static void main(String[] args) {
-		// File 클래스를 통해서 파일을 읽고 쓰기
-		// Stream : input == 내 프로그램으로 가져온다, output == 내 프로그램에서 내보낸다
+		// log파일 (데이터를 주고받은 이력을 기록)
+		// 일반적으로 통신이나 stream 작업을 할 때 오류가 많이 발생
+		// 입력부분만 필요
 		
-		ControlFile cf = new ControlFile();
-		// cf.createFile("C:\\log\\");      // 만드는 부분
-		// cf.putFile("C:\\log\\myfile.txt");   // 쓰는 부분
+		// 무한으로 입력하고 출력시키는 프로그램(==> 출력(사용 전) 시키기전에 입력내용을 파일에 기록)
+		Scanner sc = new Scanner(System.in);
+		MyFile myFile = new MyFile();
+		String str = "";
 		
-		// MyFile mf = new MyFile();
-		// mf.readFile("C:\\log\\log.txt");        // 읽는부분
-		cf.deleteFile("C:\\log\\myfile.txt");  // 삭제하는 부분
+		while(true) {
+			System.out.println("출력할 내용을 입력하세요>> ");
+			str = sc.nextLine();       // 입력
+			// <<str 변수를 log 파일에 기록>>
+			 myFile.putFile("C:\\log\\log.txt",str);     // 파일 경로와 기록 내용
+			
+			System.out.println(str);    // 출력
+			
+		}
 	}
 }
 
-class ControlFile{
+class MyFile{
 	private Scanner sc = new Scanner(System.in);
 	
 	// 파일 읽기 : FileInputStream, InputStreamReader, BufferedReader
@@ -82,7 +90,7 @@ class ControlFile{
 	}
 	
 	// 입력하기 : 내 프로그램 -> 운영체제 프로그램 (OutputStream)
-	public void putFile(String pathfile) {
+	public void putFile(String pathfile, String msg) {
 		FileOutputStream fos = null;
 		
 		try {
@@ -90,15 +98,12 @@ class ControlFile{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("입력할 내용>> ");
-		String str = sc.nextLine();
-		str += "\n";   // 줄바꿈
+		msg += "\n";   // 줄바꿈
 		 
 		// 파일로 옮기기 위해선 byte 단위로 바꿔야함
-		byte[] byteArray = str.getBytes();      // String -> byte[]
+		byte[] byteArray = msg.getBytes();      // String -> byte[]
 		try {
 			fos.write(byteArray);            // 파일에 쓰기
-			System.out.println("입력 성공");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally {
@@ -122,47 +127,3 @@ class ControlFile{
 		}
 	}
 }
-
-class MyFile{
-	private Scanner sc = new Scanner(System.in);
-	
-	public void readFile(String mir) {
-		FileInputStream fis = null;
-		
-		try {
-			fis = new FileInputStream(mir);
-			
-			InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-			BufferedReader br = new BufferedReader(isr);
-			
-			String str = null;
-			while((str = br.readLine()) != null) {
-				System.out.println(str);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("파일 읽기 실패..");
-		} catch (Exception e) {
-			System.out.println("변환 실패");
-		}finally {
-			try {
-				fis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} 
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
