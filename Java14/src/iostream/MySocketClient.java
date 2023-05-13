@@ -38,7 +38,7 @@ class MyClient extends Thread{
 		// IP : cmd => ipconfig
 		try {
 			// localhost  : 자기 자신의 컴퓨터 == "127.0.0.1"
-			socket = new Socket("127.0.0.1", 8080);      // 소켓을 생성(이제부터 통신 가능)
+			socket = new Socket("127.0.0.1", 8089);      // 소켓을 생성(이제부터 통신 가능)
 			os = socket.getOutputStream();
 			is = socket.getInputStream();
 			oos = new ObjectOutputStream(os);     // 보낼 준비 완료
